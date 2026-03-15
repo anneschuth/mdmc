@@ -70,7 +70,7 @@ uv run mdmc examples/sort.md -o sort -v
 | Flag | Description |
 |------|-------------|
 | `-o, --output` | Output binary path (default: spec filename) |
-| `--mode raw\asm\|c\|auto` | Generation mode (default: `auto`) |
+| `--mode raw\|asm\|c\|auto` | Generation mode (default: `auto`) |
 | `--show-source` | Print the generated assembly/C source |
 | `--retries N` | Max retries per mode with error feedback (default: 2) |
 | `-v, --verbose` | Show spec, generated source, and errors |
