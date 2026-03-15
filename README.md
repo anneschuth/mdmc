@@ -63,6 +63,9 @@ uv run mdmc examples/primes.md -o primes --mode c
 
 # Verbose output with all intermediate steps
 uv run mdmc examples/sort.md -o sort -v
+
+# Directly produce byte code, skip assembly
+uv run mdmc examples/hello.md -o hello_raw --mode raw
 ```
 
 ### Options
