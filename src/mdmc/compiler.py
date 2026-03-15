@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from rich.console import Console
 
-from mdmc.assembler import BuildResult, assemble_and_link, compile_c
+from mdmc.assembler import BuildResult, assemble_and_link, compile_c, write_raw_binary
 from mdmc.llm import generate_source, retry_with_error
 
 console = Console()
@@ -27,7 +27,7 @@ def _try_build(
     verbose: bool,
 ) -> CompileResult:
     """Try to generate and build in a given mode with retries."""
-    language = "ARM64 assembly" if mode == "asm" else "C"
+    language = {"asm": "ARM64 assembly", "c": "C", "raw": "raw Mach-O hex"}[mode]
 
     console.print(f"  [2/3] Generating {language}", end=" ", style="bold")
     try:
@@ -53,6 +53,8 @@ def _try_build(
 
         if mode == "asm":
             result: BuildResult = assemble_and_link(source, output)
+        elif mode == "raw":
+            result = write_raw_binary(source, output)
         else:
             result = compile_c(source, output)
 
@@ -113,6 +115,8 @@ def compile_spec(
         return _try_build(spec, "asm", output, retries, verbose)
     elif mode == "c":
         return _try_build(spec, "c", output, retries, verbose)
+    elif mode == "raw":
+        return _try_build(spec, "raw", output, retries, verbose)
     else:
         # Auto mode: try asm, fall back to C
         result = _try_build(spec, "asm", output, retries, verbose)

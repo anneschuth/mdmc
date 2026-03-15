@@ -18,7 +18,7 @@ console = Console()
 @click.option("-o", "--output", default=None, help="Output binary path")
 @click.option(
     "--mode",
-    type=click.Choice(["asm", "c", "auto"]),
+    type=click.Choice(["asm", "c", "raw", "auto"]),
     default="auto",
     help="Generation mode (default: auto)",
 )
@@ -71,7 +71,7 @@ def main(
             f"{result.attempts} attempt(s), {elapsed:.1f}s)"
         )
         if show_source:
-            lang = "asm" if result.mode_used == "asm" else "c"
+            lang = {"asm": "asm", "c": "c", "raw": "hex"}.get(result.mode_used, result.mode_used)
             console.print(f"\n[dim]--- Generated {lang} source ---[/dim]")
             console.print(result.source, highlight=False)
             console.print("[dim]--- End ---[/dim]")
