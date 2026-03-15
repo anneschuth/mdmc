@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+
+# Compiled binaries (these are generated outputs)
+hello
+fizzbuzz
+fibonacci
+guessing_game
+primes
+sort
+diamond
+calculator
+maze
+rot13
+
+# OS
+.DS_Store
+
+# uv
+.python-version
+
+# Recordings
+*.cast
+*.gif
